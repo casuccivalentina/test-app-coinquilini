@@ -1,98 +1,123 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+import Spesa from '@/components/spesa';
+import { IconSymbol } from '@/components/ui/icon-symbol';
+import { router } from 'expo-router';
+import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-import { HelloWave } from '@/components/hello-wave';
-import ParallaxScrollView from '@/components/parallax-scroll-view';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { Link } from 'expo-router';
+const data = [
+  {description: 'Hotel 2 notti', gruppo:'Weekend a Roma', totalAmount: 18, creator: 'Casucci Valentina', splitBetween: ['me','IasellaDavide'], done: false},
+  {description: 'Hotel 4 notti', gruppo:'Weekend a Milano', totalAmount: 80.5, creator: 'marcodallavalle', splitBetween: ['me','Iasella Davide'], done: true},
+  {description: 'Hotel 1 notte', gruppo:'Weekend a Valencia', totalAmount: 1, creator: 'me', splitBetween: ['me', 'Casucci Valentina'], done: true},
+]
 
 export default function HomeScreen() {
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <Link href="/modal">
-          <Link.Trigger>
-            <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-          </Link.Trigger>
-          <Link.Preview />
-          <Link.Menu>
-            <Link.MenuAction title="Action" icon="cube" onPress={() => alert('Action pressed')} />
-            <Link.MenuAction
-              title="Share"
-              icon="square.and.arrow.up"
-              onPress={() => alert('Share pressed')}
+    <>
+    <View style={styles.title}>
+        <Image source={require('@/assets/images/logo-app.png')} style={styles.titleImage}></Image>
+    </View>
+    <ScrollView style={styles.page} contentContainerStyle={{justifyContent:'space-between',flex:1}}>
+      <View style={styles.expenses}>
+        <Text style={styles.titlePage}>Last Expenses</Text>
+        <View>
+          {data.map((d, i) => (
+            <Spesa
+              key={i}
+              done={d.done}
+              description={d.description}
+              totalAmount={d.totalAmount}
+              splitBetween={d.splitBetween}
+              creator={d.creator}
+              gruppo={d.gruppo} 
+              data={(new Date().toLocaleDateString('it-IT'))}
             />
-            <Link.Menu title="More" icon="ellipsis">
-              <Link.MenuAction
-                title="Delete"
-                icon="trash"
-                destructive
-                onPress={() => alert('Delete pressed')}
-              />
-            </Link.Menu>
-          </Link.Menu>
-        </Link>
-
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+          ))}
+        </View>
+      </View>
+      <View style={styles.groups}>
+        <Text style={styles.titlePage}>Groups</Text>
+        <View style={{flexDirection:'column', gap:30}}>
+          <TouchableOpacity style={styles.dettagli} onPress={() => router.push('/pages/gruppi')}>
+            <Text style={styles.LinkText}>View all groups</Text>
+            <IconSymbol size={20} name="chevron.right" color={'black'} style={{marginVertical:'auto'}} />
+          </TouchableOpacity>
+        </View>
+      </View>
+    </ScrollView>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
+  title:{
+      paddingTop:50,
+      /* paddingBottom:10, */
+      height:120,
+      flexDirection:'row',
+      justifyContent:'center',
+      borderBottomWidth:0.5,
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
+  titleImage:{
+    width:150,
+    aspectRatio:2.5,
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
+  page:{
+    //flex:1,
+    //justifyContent:'space-between',
+    backgroundColor:'white',
+  },
+  expenses:{
+    //flex:0.75,
+  },
+  titlePage:{
+    marginVertical:20,
+    marginHorizontal:20,
+    fontSize:20,
+    color:'rgba(24, 140, 101, 1)',
+    fontWeight:500,
+  },
+  exp:{
+    flex:1,
+    borderWidth:2,
+    borderColor:'rgba(24, 140, 101, 1)',
+    borderRadius:10,
+    marginVertical:10,
+    marginHorizontal:20,
+    padding:20,
+    flexDirection:'row',
+    justifyContent:'space-between',
+  },
+  expTesto:{
+    fontSize:18,
+    marginVertical:'auto',
+  },
+  expCreator:{
+    color:'rgba(93, 93, 93, 1)',
+  },
+  expTot:{
+    fontSize:18,
+    fontWeight:600,
+  },
+  fadeBottom: {
+    position: 'absolute',
     bottom: 0,
     left: 0,
-    position: 'absolute',
+    right: 0,
+    height: 100, // regola come vuoi
+  },
+  groups:{
+    marginVertical:'auto',
+  },
+  dettagli:{
+    borderWidth:2,
+    borderColor:'rgba(24, 140, 101, 1)',
+    flexDirection:'row',
+    justifyContent:'space-around',
+    paddingVertical:15,
+    marginHorizontal:50,
+    borderRadius:10,
+  },
+  LinkText:{
+      marginVertical:'auto',
+      fontSize:22,
   },
 });
