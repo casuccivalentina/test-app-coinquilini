@@ -2,6 +2,7 @@
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
     "strict": true,
+<<<<<<< HEAD
     "jsx": "react-native",
     "allowJs": true,
     "esModuleInterop": true,
@@ -16,13 +17,25 @@
     "noEmit": true,
     "paths": {
       "@/*": ["./*"]  // Assicurati che sia così
+=======
+    "paths": {
+      "@/*": [
+        "./*"
+      ]
+>>>>>>> 137181cea2a387b4605ac75e121fd8a257baf8e0
     }
   },
   "include": [
     "**/*.ts",
     "**/*.tsx",
     ".expo/types/**/*.ts",
+<<<<<<< HEAD
     "expo-env.d.ts",
     "app/**/*.tsx"  // Assicurati che la cartella app sia inclusa
   ]
 }
+=======
+    "expo-env.d.ts"
+  ]
+}
+>>>>>>> 137181cea2a387b4605ac75e121fd8a257baf8e0

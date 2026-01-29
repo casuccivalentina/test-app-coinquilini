@@ -1,5 +1,6 @@
 import * as ImagePicker from 'expo-image-picker';
 import { useRouter } from 'expo-router';
+<<<<<<< HEAD
 import { useRef, useState, useEffect } from 'react';
 import { Animated, Image, Keyboard, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View, Alert, ActivityIndicator } from 'react-native';
 import ProfileImageModal from "./ProfileImageModal";
@@ -25,6 +26,17 @@ export default function ProfileLoginDone({ user, onLogout }: ProfileLoginDonePro
     const router = useRouter();
     const [profileImage, setProfileImage] = useState<any>(require('../assets/images/profile.png'));
     const [uploadingImage, setUploadingImage] = useState(false);
+=======
+import React, { useRef, useState } from 'react';
+import { Animated, Image, Keyboard, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
+import ProfileImageModal from "./ProfileImageModal";
+import { IconSymbol } from './ui/icon-symbol';
+
+export default function ProfileLoginDone () {
+
+    const router = useRouter();
+    const [foto, setFoto] = useState(require('../assets/images/profile.png'));
+>>>>>>> 137181cea2a387b4605ac75e121fd8a257baf8e0
     const [editingField, setEditingField] = useState<null | string>(null);
     const emailRef = useRef<TextInput>(null);
     const usernameRef = useRef<TextInput>(null);
@@ -33,6 +45,7 @@ export default function ProfileLoginDone({ user, onLogout }: ProfileLoginDonePro
 
     // ---- MODALE ----
     const [modalVisible, setModalVisible] = useState(false);
+<<<<<<< HEAD
     const fadeAnim = useRef(new Animated.Value(0)).current;
     const slideAnim = useRef(new Animated.Value(200)).current;
 
@@ -57,11 +70,31 @@ export default function ProfileLoginDone({ user, onLogout }: ProfileLoginDonePro
         Animated.parallel([
             Animated.timing(fadeAnim, { toValue: 1, duration: 200, useNativeDriver: true }),
             Animated.spring(slideAnim, { toValue: 0, bounciness: 5, useNativeDriver: true }),
+=======
+    const fadeAnim = useRef(new Animated.Value(0)).current;    // sfondo fade
+    const slideAnim = useRef(new Animated.Value(200)).current; // contenuto dal basso
+
+    const openModal = () => {
+        setModalVisible(true);
+
+        Animated.parallel([
+            Animated.timing(fadeAnim, {
+                toValue: 1,
+                duration: 200,
+                useNativeDriver: true,
+            }),
+            Animated.spring(slideAnim, {
+                toValue: 0,
+                bounciness: 5,
+                useNativeDriver: true,
+            }),
+>>>>>>> 137181cea2a387b4605ac75e121fd8a257baf8e0
         ]).start();
     };
 
     const closeModal = () => {
         Animated.parallel([
+<<<<<<< HEAD
             Animated.timing(fadeAnim, { toValue: 0, duration: 200, useNativeDriver: true }),
             Animated.timing(slideAnim, { toValue: 200, duration: 200, useNativeDriver: true }),
         ]).start(() => setModalVisible(false));
@@ -179,11 +212,46 @@ export default function ProfileLoginDone({ user, onLogout }: ProfileLoginDonePro
         
         if (!result.canceled) {
             await uploadProfileImage(result.assets[0].uri);
+=======
+            Animated.timing(fadeAnim, {
+                toValue: 0,
+                duration: 200,
+                useNativeDriver: true,
+            }),
+            Animated.timing(slideAnim, {
+                toValue: 200,
+                duration: 200,
+                useNativeDriver: true,
+            })
+        ]).start(() => setModalVisible(false));
+    };
+
+    // ---- AZIONI FOTO ----
+    const pickFromGallery = async () => {
+        closeModal();
+
+        const permission = await ImagePicker.requestMediaLibraryPermissionsAsync();
+        if (!permission.granted) {
+            alert("Permesso necessario per accedere alla galleria.");
+            return;
+        }
+
+        const result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            allowsEditing: true,
+            aspect: [1, 1],
+            quality: 1,
+        });
+
+        if (!result.canceled) {
+            setFoto({ uri: result.assets[0].uri });
+>>>>>>> 137181cea2a387b4605ac75e121fd8a257baf8e0
         }
     };
 
     const takePhoto = async () => {
         closeModal();
+<<<<<<< HEAD
         const permission = await ImagePicker.requestCameraPermissionsAsync();
         if (!permission.granted) { 
             alert("Permesso necessario per usare la fotocamera."); 
@@ -261,6 +329,42 @@ export default function ProfileLoginDone({ user, onLogout }: ProfileLoginDonePro
                     <Text style={styles.logoutText}>Esci</Text>
                 </TouchableOpacity>
 
+=======
+
+        const permission = await ImagePicker.requestCameraPermissionsAsync();
+        if (!permission.granted) {
+            alert("Permesso necessario per usare la fotocamera.");
+            return;
+        }
+
+        const result = await ImagePicker.launchCameraAsync({
+            allowsEditing: true,
+            aspect: [1, 1],
+            quality: 1,
+        });
+
+        if (!result.canceled) {
+            setFoto({ uri: result.assets[0].uri });
+        }
+    };
+
+    const deletePhoto =()=>{
+        closeModal();
+        setFoto(require('../assets/images/profile.png'));
+    }
+
+    return (
+        <>
+
+        <TouchableWithoutFeedback
+            onPress={() => {
+                setEditingField(null);
+                Keyboard.dismiss();
+            }}
+        >
+            <View style={styles.Page}>
+                
+>>>>>>> 137181cea2a387b4605ac75e121fd8a257baf8e0
                 {/* MODALE CAMBIO FOTO */}
                 <ProfileImageModal
                     visible={modalVisible}
@@ -271,6 +375,7 @@ export default function ProfileLoginDone({ user, onLogout }: ProfileLoginDonePro
                     onPickFromGallery={pickFromGallery}
                     onDeletePhoto={deletePhoto}
                 />
+<<<<<<< HEAD
 
                 <ScrollView style={{ flex:1 }} contentContainerStyle={{ paddingBottom: 50 }}>
                     <TouchableOpacity style={styles.Image} onPress={openModal} disabled={uploadingImage}>
@@ -281,12 +386,19 @@ export default function ProfileLoginDone({ user, onLogout }: ProfileLoginDonePro
                         ) : (
                             <Image source={profileImage} style={styles.profileImage} />
                         )}
+=======
+                <ScrollView style={{ flex:1 }}>
+
+                    <TouchableOpacity style={styles.Image} onPress={openModal}>
+                        <Image source={foto} style={styles.profileImage} />
+>>>>>>> 137181cea2a387b4605ac75e121fd8a257baf8e0
                     </TouchableOpacity>
 
                     <View style={styles.titoloTesto}>
                         <Text style={styles.testo}>E-mail</Text>
                         <View style={styles.campo}>
                             <TextInput 
+<<<<<<< HEAD
                                 ref={emailRef} 
                                 style={styles.testoCampo} 
                                 value={user.email} 
@@ -303,10 +415,24 @@ export default function ProfileLoginDone({ user, onLogout }: ProfileLoginDonePro
                         </View>
                     </View>
 
+=======
+                                ref={emailRef}
+                                style={styles.testoCampo} 
+                                value='valentinacasucci@gmail.com' 
+                                editable={editingField === 'email'}
+                                selectTextOnFocus={true}
+                            />
+                            <TouchableOpacity onPress={() => {setEditingField('email');setTimeout(() => emailRef.current?.focus(), 50);}}>
+                                <IconSymbol name={'pencil'} color={'rgb(0,0,0)'} size={20} style={{marginVertical:'auto', marginRight:0 }}></IconSymbol>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+>>>>>>> 137181cea2a387b4605ac75e121fd8a257baf8e0
                     <View style={styles.titoloTesto}>
                         <Text style={styles.testo}>Username</Text>
                         <View style={styles.campo}>
                             <TextInput 
+<<<<<<< HEAD
                                 ref={usernameRef} 
                                 style={styles.testoCampo} 
                                 value={user.username} 
@@ -366,10 +492,58 @@ export default function ProfileLoginDone({ user, onLogout }: ProfileLoginDonePro
                 </ScrollView>
             </View>
         </TouchableWithoutFeedback>
+=======
+                                ref={usernameRef}
+                                style={styles.testoCampo} 
+                                value='valentinacasucci' 
+                                editable={editingField === 'username'}
+                                selectTextOnFocus={true}
+                            />
+                            <TouchableOpacity onPress={() => {setEditingField('username');setTimeout(() => usernameRef.current?.focus(), 50);}}>
+                                <IconSymbol name={'pencil'} color={'rgb(0,0,0)'} size={20} style={{marginVertical:'auto', marginRight:0,}}></IconSymbol>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                    <View style={styles.titoloTesto}>
+                        <Text style={styles.testo}>Nome</Text>
+                        <View style={styles.campo}>
+                            <TextInput
+                                ref={nameRef}
+                                style={styles.testoCampo} 
+                                value='Valentina' 
+                                editable={editingField === 'name'}
+                                selectTextOnFocus={true}
+                            />
+                            <TouchableOpacity onPress={() => {setEditingField('name');setTimeout(() => nameRef.current?.focus(), 50);}}>
+                                <IconSymbol name={'pencil'} color={'rgb(0,0,0)'} size={20} style={{marginVertical:'auto', marginRight:0,}}></IconSymbol>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                    <View style={styles.titoloTesto}>
+                        <Text style={styles.testo}>Cognome</Text>
+                        <View style={styles.campo}>
+                            <TextInput
+                                ref={surnameRef}
+                                style={styles.testoCampo}
+                                value='Casucci' 
+                                editable={editingField === 'surname'}
+                                selectTextOnFocus={true}
+                            />
+                            <TouchableOpacity onPress={() => {setEditingField('surname');setTimeout(() => surnameRef.current?.focus(), 50);}}>
+                                <IconSymbol name={'pencil'} color={'rgb(0,0,0)'} size={20} style={{marginVertical:'auto', marginRight:0,}}></IconSymbol>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </ScrollView>
+            </View>
+        </TouchableWithoutFeedback>
+        </>
+>>>>>>> 137181cea2a387b4605ac75e121fd8a257baf8e0
     );
 }
 
 const styles = StyleSheet.create({
+<<<<<<< HEAD
     Page: { flex:1, position:'relative', backgroundColor:'white' },
     Image: { marginHorizontal:'auto', marginTop:30, marginBottom:30 },
     profileImage: { borderWidth:1, width:200, height:200, aspectRatio:1, borderRadius:100 },
@@ -379,4 +553,72 @@ const styles = StyleSheet.create({
     testoCampo: { fontSize:20, fontWeight:'500', marginVertical:'auto', paddingVertical:5, width:'90%', borderBottomWidth:0.5 },
     logoutButton: { position:'absolute', top:50, right:15, backgroundColor:'red', paddingHorizontal:14, paddingVertical:8, borderRadius:8, zIndex:10 },
     logoutText: { color:'white', fontWeight:'600' }
+=======
+    Page:{
+        flex:1,
+        position:'relative',
+        backgroundColor:'rgba(255, 255, 255, 1)',
+    },
+    Image:{
+        marginHorizontal:'auto',
+        marginTop:30,
+        marginBottom:30,
+    },
+    profileImage:{
+        borderWidth:1,
+        height:200,
+        aspectRatio:1,
+        borderRadius:'50%',
+    },
+    username:{
+        paddingBottom:20,
+        borderBottomWidth:1,
+        marginHorizontal:30,
+    },
+    /* testo:{
+        fontSize:20,
+        marginBottom:30,
+    },
+    testoCampo:{
+        textAlign:'center',
+        fontSize:24,
+        fontWeight:600,
+    }, */
+    dettagli:{
+        borderWidth:1,
+        flexDirection:'row',
+        justifyContent:'space-around',
+        paddingVertical:20,
+        marginHorizontal:50,
+        borderRadius:10,
+    },
+    LinkText:{
+        marginVertical:'auto',
+        fontSize:22,
+    },
+
+
+    
+    titoloTesto:{
+        marginBottom:30,
+        marginHorizontal:40,
+    },
+    campo:{
+        flexDirection:'row',
+        justifyContent:'space-between',
+    },
+    testo:{
+        fontSize:16,
+        marginVertical:'auto',
+        color:'rgba(24, 140, 101, 1)',
+    },
+    testoCampo:{
+        fontSize:20,
+        fontWeight:500,
+        marginVertical:'auto',
+        paddingVertical:5,
+        width:'90%',
+        borderBottomWidth:0.5,
+    },
+>>>>>>> 137181cea2a387b4605ac75e121fd8a257baf8e0
 });

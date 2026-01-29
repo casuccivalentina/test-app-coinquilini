@@ -20,6 +20,10 @@ export function Collapsible({ children, title }: PropsWithChildren & { title: st
         <IconSymbol
           name="chevron.right"
           size={18}
+<<<<<<< HEAD
+=======
+          weight="medium"
+>>>>>>> 137181cea2a387b4605ac75e121fd8a257baf8e0
           color={theme === 'light' ? Colors.light.icon : Colors.dark.icon}
           style={{ transform: [{ rotate: isOpen ? '90deg' : '0deg' }] }}
         />

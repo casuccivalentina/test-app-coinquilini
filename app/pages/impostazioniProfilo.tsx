@@ -1,6 +1,10 @@
 import { IconSymbol } from '@/components/ui/icon-symbol';
 import { router, Stack } from 'expo-router';
+<<<<<<< HEAD
 import { useRef, useState } from 'react';
+=======
+import React, { useRef, useState } from 'react';
+>>>>>>> 137181cea2a387b4605ac75e121fd8a257baf8e0
 import { Animated, ScrollView, StyleSheet, Switch, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
 export default function ImpostazioniProfilo() {

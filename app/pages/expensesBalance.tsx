@@ -1,4 +1,5 @@
 import { Stack } from 'expo-router';
+<<<<<<< HEAD
 import { useState, useEffect, useRef } from 'react';
 import {
   View,
@@ -178,4 +179,29 @@ const styles = StyleSheet.create({
   },
   searchInput: { flex: 1, height: 40 },
   expensesList: { gap: 8, marginBottom: 20 },
+=======
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+
+
+export default function History() {
+
+    return (
+        <>
+            <Stack.Screen options={{ headerShown: false }} />
+
+            <View style={styles.page}>
+                <Text>s</Text>
+            </View>
+        </>
+    );
+}
+
+const styles = StyleSheet.create({
+    
+    page:{
+        flex:1,
+        backgroundColor:'blue'
+    }
+>>>>>>> 137181cea2a387b4605ac75e121fd8a257baf8e0
 });
