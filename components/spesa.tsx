@@ -36,7 +36,11 @@ export default function Spesa({description, done, totalAmount, splitBetween, cre
             >
                 <View style={{flexDirection:'row',justifyContent:'space-between',}}>
                     <Text style={[styles.spesaSingola, { color: done ? 'rgba(21,98,16,1)' : 'rgba(255,0,0,1)' }]}>
+<<<<<<< HEAD
+                    {(totalAmount/splitBetween.length).toLocaleString('it-IT', {
+=======
                     {(totalAmount / splitBetween.length).toLocaleString('it-IT', {
+>>>>>>> 137181cea2a387b4605ac75e121fd8a257baf8e0
                         style: 'currency',
                         currency: 'EUR',
                     })}
@@ -56,10 +60,18 @@ export default function Spesa({description, done, totalAmount, splitBetween, cre
                     </View>
 
                     <IconSymbol
+<<<<<<< HEAD
+                        name={'chevron.right'}
+                        color={'rgb(0,0,0)'}
+                        style={{ alignSelf:'center', marginRight:20 }}
+                    />
+
+=======
                     name={'chevron.right'}
                     color={'rgb(0,0,0)'}
                     style={{ marginVertical: 'auto', marginRight: 20 }}
                     />
+>>>>>>> 137181cea2a387b4605ac75e121fd8a257baf8e0
                 </View>
             </ImageBackground>
             </TouchableOpacity>
@@ -74,23 +86,36 @@ const styles = StyleSheet.create({
         borderRadius:10,
         borderWidth:2,
         borderColor:'rgba(24, 140, 101, 1)',
+<<<<<<< HEAD
+    },
+    background:{},
+=======
         
     },
     background:{
     },
+>>>>>>> 137181cea2a387b4605ac75e121fd8a257baf8e0
     dettagliSpesa:{
         width:'100%',
         padding:15,
     },
     titoloSpesa:{
         fontSize:22,
+<<<<<<< HEAD
+        fontWeight:"600",
+=======
         fontWeight:600,
+>>>>>>> 137181cea2a387b4605ac75e121fd8a257baf8e0
         marginBottom:5,
         width:'70%',
     },
     gruppoSpesa:{
         fontSize:14,
+<<<<<<< HEAD
+        marginVertical:0,
+=======
         marginVertical:'auto',
+>>>>>>> 137181cea2a387b4605ac75e121fd8a257baf8e0
         width:'70%',
     },
     tagSpesa:{
@@ -102,18 +127,34 @@ const styles = StyleSheet.create({
     },
     dataSpesa:{
         fontSize:14,
+<<<<<<< HEAD
+        fontWeight:"500",
+        marginVertical:0,
+    },
+    spesaSingola:{
+        position:'absolute',
+        bottom:5,
+=======
         fontWeight:500,
         marginVertical:'auto',
     },
     spesaSingola:{
         position:'absolute',
         bottom: 5,
+>>>>>>> 137181cea2a387b4605ac75e121fd8a257baf8e0
         marginHorizontal:15,
         left:0,
         right:0,
         fontSize:20,
         marginTop:20,
+<<<<<<< HEAD
+        fontWeight:"600",
+        textAlign:'center'
+    },
+})
+=======
         fontWeight:600,
         textAlign:'center'
     },
 })
+>>>>>>> 137181cea2a387b4605ac75e121fd8a257baf8e0
